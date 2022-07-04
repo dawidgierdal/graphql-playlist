@@ -2,10 +2,11 @@ const express = require('express');
 const schema = require('./schema/schema');
 const { mongoose } = require('mongoose');
 const { graphqlHTTP } = require('express-graphql');
+require('dotenv').config();
 
 const app = express();
 
-mongoose.connect('mongodb+srv://dawid:Testtest123!@cluster0.tuwvw9j.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect(process.env.MONGO_DB);
 mongoose.connection.once('open', () => {
     console.log('connected to database')
 })
