@@ -1,25 +1,16 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
-
-const GET_BOOKS = gql`
-  query GetBooks {
-    books {
-      id
-      name
-    }
-  }
-`;
+import { useQuery } from '@apollo/client';
+import { GET_BOOKS } from '../queries/queries';
 
 export const BookList = () => {
     const { data, loading } = useQuery(GET_BOOKS);
 
-    if (loading) return <p>Loading...</p>;
+    const booksToRender = data?.books?.map(({ name, id }) => <li key={id}>{name}</li>)
 
-      console.log('data', data)
     return (
         <div>
             <ul>
-                <li>Book name</li>
+                {loading ? <p>Loading...</p> : booksToRender}
             </ul>
         </div>
     );
